@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mining App</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>Welcome to Mining App</h1>
+        <p><b>Total Tokens:</b> <span id="total-tokens">0</span></p>
+        <p><b>Energy:</b> <span id="energy">0</span></p>
+        <button id="start-mining">Start Mining</button>
+        <div id="blocks"></div>
+    </div>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+
+        // Инициализация
+        tg.ready();
+
+        async function loadUserData() {
+            const response = await fetch('http://127.0.0.1:5000/auth', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ telegram_id: tg.initDataUnsafe.user.id, username: tg.initDataUnsafe.user.username })
+            });
+            const user = await response.json();
+            document.getElementById('total-tokens').innerText = user.user.total_tokens;
+            document.getElementById('energy').innerText = user.user.max_energy;
+        }
+
+        document.getElementById('start-mining').onclick = async () => {
+            const response = await fetch('http://127.0.0.1:5000/start_mining', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ telegram_id: tg.initDataUnsafe.user.id })
+            });
+            const data = await response.json();
+            alert('Mining started: ' + JSON.stringify(data));
+            loadUserData();
+        };
+
+        loadUserData();
+    </script>
+</body>
+</html>
