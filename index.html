@@ -81,7 +81,7 @@
         async function loadUserData() {
             try {
                 // Замените локальный адрес на публичный URL ngrok
-                const response = await fetch('https://63a5-77-222-109-115.ngrok-free.app/auth', {
+                const response = await fetch('https://93fe-77-222-109-115.ngrok-free.app/auth', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ telegram_id: tg.initDataUnsafe.user.id, username: tg.initDataUnsafe.user.username })
@@ -100,7 +100,7 @@
         document.getElementById('start-mining').onclick = async () => {
             try {
                 // Замените локальный адрес на публичный URL ngrok
-                const response = await fetch('https://63a5-77-222-109-115.ngrok-free.app/start_mining', {
+                const response = await fetch('https://93fe-77-222-109-115.ngrok-free.app/start_mining', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ telegram_id: tg.initDataUnsafe.user.id })
