@@ -4,119 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mining App</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-        #app {
-            background: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-            padding: 20px;
-            max-width: 400px;
-            width: 100%;
-            text-align: center;
-        }
-        h1 {
-            color: #0078D7;
-        }
-        p {
-            margin: 10px 0;
-            font-size: 16px;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            color: white;
-            background-color: #0078D7;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #005BB5;
-        }
-        #blocks {
-            margin-top: 20px;
-            font-size: 14px;
-            text-align: left;
-            max-height: 150px;
-            overflow-y: auto;
-            background: #f9f9f9;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1);
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">  <!-- Подключаем CSS -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>  <!-- Подключаем Telegram Web App API -->
 </head>
 <body>
     <div id="app">
-        <h1>Welcome to Mining App</h1>
-        <p><b>Total Tokens:</b> <span id="total-tokens">0</span></p>
-        <p><b>Energy:</b> <span id="energy">0</span></p>
-        <button id="start-mining">Start Mining</button>
-        <div id="blocks">Blocks information will appear here...</div>
+        <div id="header">
+            <h1>Mining App</h1>
+        </div>
+        <div id="content">
+            <p><b>Total Tokens:</b> <span id="total-tokens">0</span></p>
+            <p><b>Energy:</b> <span id="energy">0</span></p>
+            <div id="buttons">
+                <button id="start-mining">Start Mining</button>
+            </div>
+        </div>
+        <div id="footer">
+            <p>Powered by Telegram Web App</p>
+        </div>
     </div>
 
-    <script>
-        const tg = window.Telegram.WebApp;
-
-        // Telegram Web App Initialization
-        tg.ready();
-
-        // Set the app background color
-        tg.expand();
-        document.body.style.backgroundColor = tg.themeParams.bg_color || "#f4f4f9";
-
-        // Function to load user data
-        async function loadUserData() {
-            try {
-                // Замените локальный адрес на публичный URL ngrok
-                const response = await fetch('https://93fe-77-222-109-115.ngrok-free.app/auth', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ telegram_id: tg.initDataUnsafe.user.id, username: tg.initDataUnsafe.user.username })
-                });
-                if (!response.ok) throw new Error('Failed to load user data');
-                const user = await response.json();
-                document.getElementById('total-tokens').innerText = user.user.total_tokens;
-                document.getElementById('energy').innerText = user.user.max_energy;
-            } catch (error) {
-                console.error(error);
-                alert('Error loading user data.');
-            }
-        }
-
-        // Event handler for starting mining
-        document.getElementById('start-mining').onclick = async () => {
-            try {
-                // Замените локальный адрес на публичный URL ngrok
-                const response = await fetch('https://93fe-77-222-109-115.ngrok-free.app/start_mining', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ telegram_id: tg.initDataUnsafe.user.id })
-                });
-                if (!response.ok) throw new Error('Failed to start mining');
-                const data = await response.json();
-                alert('Mining started: ' + JSON.stringify(data));
-                loadUserData();
-            } catch (error) {
-                console.error(error);
-                alert('Error starting mining.');
-            }
-        };
-
-        // Initial data load
-        loadUserData();
-    </script>
+    <script src="app.js"></script>  <!-- Подключаем JavaScript -->
 </body>
 </html>

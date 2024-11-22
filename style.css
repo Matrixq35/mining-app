@@ -1,0 +1,90 @@
+/* Общие стили */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+/* Основной контейнер */
+#app {
+    width: 100%;
+    max-width: 450px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Шапка */
+#header {
+    background-color: #0078D7;
+    padding: 20px;
+    text-align: center;
+    color: white;
+}
+
+/* Контент */
+#content {
+    padding: 20px;
+    text-align: center;
+}
+
+#content p {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+#content span {
+    font-weight: bold;
+}
+
+/* Кнопки */
+#buttons {
+    margin-top: 30px;
+}
+
+button {
+    background-color: #0078D7;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #005BB5;
+}
+
+/* Подвал */
+#footer {
+    background-color: #f4f4f9;
+    padding: 15px;
+    text-align: center;
+    color: #999;
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+#app {
+    animation: fadeIn 0.5s ease-out;
+}
